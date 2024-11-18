@@ -56,15 +56,15 @@ app.delete("/books/:id", async (req, res) => {
 });
 
 app.put("/books/:id",async(req,res)=>{
-  const bookId = req.params.id
-  const updateBook = req.body
+  const bookId = req.params.id;
+  const updateBook = req.body;
   try{
-    const updatedbook = Books.findByIdAndUpdate(bookId,updateBook,{new:true})
+    const updatedbook =await Books.findByIdAndUpdate(bookId,updateBook,{new:true})
     if(!updateBook){
-      res.status(404).json({message:"Book not found"})
+      return res.status(404).json({message:"Book not found"})
     }
     
-  res.status(200).json(updatedBook)
+  res.status(200).json(updatedbook)
 
   }catch(error){
     res.status(500).json({error:"Internal server error"})
